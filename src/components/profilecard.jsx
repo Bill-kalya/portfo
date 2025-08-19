@@ -1,0 +1,70 @@
+import React, { useEffect, useRef} from 'react';
+import './ProfileCard.css'; // Import the CSS (formerly me.css)
+
+const ProfileCard = () => {
+  const detailsRef = useRef(null);
+  const glowRef = useRef(null);
+
+  const detailsLines = [
+    "<h1>KALYA BILLGATES KIPRONO</h1>",
+    "<p><span>Role:</span> Full Stack Developer</p>",
+    "<p><span>Specialties:</span> Mobile and Web Developer</p>",
+    "<p><span>Status:</span> <span class='status'>Available</span></p>"
+  ];
+
+  const glowLines = [
+    "A qualified IT professional with a strong foundation in Information Science and Technology. Having recently completed my studies, I'm currently seeking opportunities to apply my skills in web and mobile development. I'm passionate about creating innovative solutions that drive real-world impact."
+  ];
+
+  const typeLine = (lines, container, callback) => {
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+      if (lineIndex < lines.length) {
+        let currentLine = lines[lineIndex];
+        if (charIndex <= currentLine.length) {
+          container.innerHTML =
+            lines.slice(0, lineIndex).join('') +
+            currentLine.substring(0, charIndex) +
+            '|';
+          charIndex++;
+          setTimeout(type, 20);
+        } else {
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(type, 400);
+        }
+      } else {
+        container.innerHTML = lines.join('');
+        if (callback) callback();
+      }
+    }
+
+    type();
+  };
+
+  useEffect(() => {
+    const detailsEl = detailsRef.current;
+    const glowEl = glowRef.current;
+
+    typeLine(detailsLines, detailsEl, () => {
+      typeLine(glowLines, glowEl);
+    });
+  }, []);
+
+  return (
+    <div className="card">
+      <div className="inner-border"></div>
+      <div className="profile-details">
+        <div className="profile-pic"></div>
+        <div className="details" ref={detailsRef}></div>
+      </div>
+      <div className="glow-box" ref={glowRef}>
+        About me...
+      </div>
+    </div>
+  );
+};
+
+export default ProfileCard;

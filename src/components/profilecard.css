@@ -1,0 +1,155 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #0a0a0a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1000px;
+} /* ✅ this was missing before */
+
+.card {
+  width: 90%;
+  max-width: 960px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05); /* 🔄 soft translucent glass */
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #00ffff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+.inner-border {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  pointer-events: none;
+  z-index: 0;
+  border: 2px solid #00ffff99;
+  clip-path: polygon(
+    20px 0%, calc(100% - 20px) 0%, 100% 20px, 100% calc(100% - 20px),
+    calc(100% - 20px) 100%, 20px 100%, 0% calc(100% - 20px), 0% 20px
+  );
+  border-radius: 8px;
+}
+.card > *:not(.inner-border) {
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover {
+  transform: rotateY(10deg) rotateX(4deg);
+}
+
+@keyframes shimmer {
+  0% {
+    box-shadow:
+      0 0 15px #00ffff44,
+      0 0 30px #00ffff22,
+      inset 0 0 20px #00ffff22;
+  }
+  100% {
+    box-shadow:
+      0 0 25px #00ffffaa,
+      0 0 50px #00ffff55,
+      inset 0 0 30px #00ffff44;
+  }
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.profile-pic {
+  width: 250px;
+  height: 250px;
+  border: 1px solid #00ffff44;
+  border-radius: 16px;
+  background: url('your-profile.jpg') center/cover no-repeat;
+  margin-right: 30px;
+  flex-shrink: 0;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05) rotateZ(2deg);
+}
+
+
+.details {
+  flex: 1;
+  padding: 20px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.02);
+  border: 0.6px solid rgba(0, 255, 255, 0.25); /* 🔄 thin, clean border */
+  border-radius: 0; /* 🔄 sharp corners */
+}
+
+
+h1 {
+  font-size: 2em;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #00ffffaa;
+}
+
+.details p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.details span {
+  display: inline-block;
+  min-width: 120px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.status {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: lime;
+  text-shadow: 0 0 5px lime;
+}
+
+.glow-box {
+  margin-top: 20px;
+  padding: 12px;
+  background: rgba(0, 255, 255, 0.08);
+  border: 1px solid #00ffff;
+  box-shadow: inset 0 0 10px #00ffff88;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.95em;
+  text-shadow: 0 0 5px #ffffff55;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-pic {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+
