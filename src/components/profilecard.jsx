@@ -1,9 +1,14 @@
-import React, { useEffect, useRef} from 'react';
-import './ProfileCard.css'; // Import the CSS (formerly me.css)
+import React, { useEffect, useRef, useState } from 'react';
+import './ProfileCard.css';
+
+// Import images from assets
+import pic1 from '../assets/pic1.png';
+import pic2 from '../assets/pic2.png';
 
 const ProfileCard = () => {
   const detailsRef = useRef(null);
   const glowRef = useRef(null);
+  const [showFinalPic, setShowFinalPic] = useState(false);
 
   const detailsLines = [
     "<h1>KALYA BILLGATES KIPRONO</h1>",
@@ -49,7 +54,9 @@ const ProfileCard = () => {
     const glowEl = glowRef.current;
 
     typeLine(detailsLines, detailsEl, () => {
-      typeLine(glowLines, glowEl);
+      typeLine(glowLines, glowEl, () => {
+        setShowFinalPic(true); // trigger final picture animation
+      });
     });
   }, []);
 
@@ -57,7 +64,16 @@ const ProfileCard = () => {
     <div className="card">
       <div className="inner-border"></div>
       <div className="profile-details">
-        <div className="profile-pic"></div>
+        <div className="profile-pic">
+  <img src={pic1} alt="Initial" className="pic1" />
+  
+  {/* Continuous scan line while typing */}
+  <div className="scan-line"></div>
+
+  {/* Final pic appears after typing */}
+  {showFinalPic && <img src={pic2} alt="Final" className="pic2 visible" />}
+</div>
+
         <div className="details" ref={detailsRef}></div>
       </div>
       <div className="glow-box" ref={glowRef}>

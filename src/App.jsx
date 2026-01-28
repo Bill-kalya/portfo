@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Saturn from "./components/saturn.jsx";
 import ProfileCard from "./components/profilecard";
-import Experience from "./components/experience";
+import Skills from "./components/Skills.jsx";
 import ProjectCards from "./components/projects";
 import SocialIcons from "./components/socialicons.jsx";
 import "./App.css";
@@ -9,12 +9,12 @@ import "./App.css";
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [showProjectCards, setShowProjectCards] = useState(false);
-  const [showExperience, setShowExperience] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
   const [showSocialIcons, setShowSocialIcons] = useState(false);
 
   // Refs for scroll-triggered sections
   const projectRef = useRef(null);
-  const experienceRef = useRef(null);
+  const skillsRef = useRef(null);
   const socialRef = useRef(null);
 
   // Loader effect
@@ -42,9 +42,9 @@ export default function App() {
         if (top < windowHeight) setShowProjectCards(true);
       }
 
-      if (!showExperience && experienceRef.current) {
-        const top = experienceRef.current.getBoundingClientRect().top;
-        if (top < windowHeight) setShowExperience(true);
+      if (!showSkills && skillsRef.current) {
+        const top = skillsRef.current.getBoundingClientRect().top;
+        if (top < windowHeight) setShowSkills(true);
       }
 
       if (!showSocialIcons && socialRef.current) {
@@ -52,7 +52,7 @@ export default function App() {
         if (top < windowHeight) setShowSocialIcons(true);
       }
     }, 100),
-    [showProjectCards, showExperience, showSocialIcons]
+    [showProjectCards, showSkills, showSocialIcons]
   );
 
   // Add scroll listener
@@ -86,12 +86,12 @@ export default function App() {
           {showProjectCards && <ProjectCards />}
         </div>
 
-        {/* Experience */}
+        {/* Skills card */}
         <div
-          ref={experienceRef}
-          className={`content-section experience ${showExperience ? "visible" : ""}`}
+          ref={skillsRef}
+          className={`content-section skills ${showSkills ? "visible" : ""}`}
         >
-          {showExperience && <Experience />}
+          {showSkills && <Skills />}
         </div>
 
         {/* Social Icons */}
