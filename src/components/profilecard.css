@@ -1,21 +1,23 @@
-body {
-  margin: 0;
-  padding: 0;
-  background: #0a0a0a;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ================================
+   ProfileCard Styles (Scoped)
+================================= */
+
+/* Wrapper to center the card in viewport */
+.profile-card-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  perspective: 1000px;
-} /* ✅ this was missing before */
+  padding: 50px 20px;
+  min-height: 100vh; /* fills viewport */
+  background: #0a0a0a;
+}
 
+/* Glassmorphic card */
 .card {
   width: 90%;
   max-width: 960px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05); /* 🔄 soft translucent glass */
+  background: rgba(255, 255, 255, 0.05); /* soft translucent glass */
   border: 1px solid rgba(0, 255, 255, 0.3);
   border-radius: 16px;
   backdrop-filter: blur(16px);
@@ -23,8 +25,10 @@ body {
   color: #00ffff;
   display: flex;
   flex-direction: column;
+  position: relative;
   transition: transform 0.3s ease;
 }
+
 .inner-border {
   position: absolute;
   top: 10px;
@@ -40,6 +44,7 @@ body {
   );
   border-radius: 8px;
 }
+
 .card > *:not(.inner-border) {
   position: relative;
   z-index: 1;
@@ -64,12 +69,12 @@ body {
   }
 }
 
+/* Profile details layout */
 .profile-details {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 
 .profile-pic {
   width: 250px;
@@ -79,25 +84,23 @@ body {
   background: url('your-profile.jpg') center/cover no-repeat;
   margin-right: 30px;
   flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
 .profile-pic:hover {
   transform: scale(1.05) rotateZ(2deg);
 }
 
-
 .details {
   flex: 1;
   padding: 20px;
-  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background: rgba(255, 255, 255, 0.02);
-  border: 0.6px solid rgba(0, 255, 255, 0.25); /* 🔄 thin, clean border */
-  border-radius: 0; /* 🔄 sharp corners */
+  border: 0.6px solid rgba(0, 255, 255, 0.25);
+  border-radius: 0;
 }
-
 
 h1 {
   font-size: 2em;
@@ -151,5 +154,3 @@ h1 {
     margin-bottom: 20px;
   }
 }
-
-

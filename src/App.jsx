@@ -1,64 +1,66 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Saturn from "./components/saturn.jsx";
 import ProfileCard from "./components/profilecard";
 import Experience from "./components/experience";
 import ProjectCards from "./components/projects";
-import "./App.css";
 import SocialIcons from "./components/socialicons.jsx";
+import "./App.css";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [showProfileCard, setShowProfileCard] = useState(false);
   const [showProjectCards, setShowProjectCards] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
   const [showSocialIcons, setShowSocialIcons] = useState(false);
 
+  // Refs for scroll-triggered sections
+  const projectRef = useRef(null);
+  const experienceRef = useRef(null);
+  const socialRef = useRef(null);
+
+  // Loader effect
   useEffect(() => {
-    setLoading(false); // Remove the timer for immediate interaction
-    return () => {}; // No cleanup needed
+    const timer = setTimeout(() => setLoading(false), 200); // allow loader animation
+    return () => clearTimeout(timer);
   }, []);
 
+  // Debounce helper
   const debounce = (func, delay) => {
     let timeout;
     return (...args) => {
       clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
+      timeout = setTimeout(() => func(...args), delay);
     };
   };
 
-  const handleScroll = debounce(() => {
-    const profileCard = document.querySelector('.profile-card');
-    const projectCards = document.querySelector('.project-cards');
-    const experience = document.querySelector('.experience');
-    const socialIcons = document.querySelector('.social-icons');
+  // Scroll handler (for everything except ProfileCard)
+  const handleScroll = useCallback(
+    debounce(() => {
+      const windowHeight = window.innerHeight;
 
-    console.log('Scrolling...');
-    if (profileCard && profileCard.getBoundingClientRect().top < window.innerHeight) {
-      console.log('ProfileCard is in view');
-      setShowProfileCard(true);
-    }
-    if (projectCards && projectCards.getBoundingClientRect().top < window.innerHeight) {
-      console.log('ProjectCards is in view');
-      setShowProjectCards(true);
-    }
-    if (experience && experience.getBoundingClientRect().top < window.innerHeight) {
-      console.log('Experience is in view');
-      setShowExperience(true);
-    }
-    if (socialIcons && socialIcons.getBoundingClientRect().top < window.innerHeight) {
-      console.log('SocialIcons is in view');
-      setShowSocialIcons(true);
-    }
-  }, 100); // 100 ms debounce
+      if (!showProjectCards && projectRef.current) {
+        const top = projectRef.current.getBoundingClientRect().top;
+        if (top < windowHeight) setShowProjectCards(true);
+      }
 
+      if (!showExperience && experienceRef.current) {
+        const top = experienceRef.current.getBoundingClientRect().top;
+        if (top < windowHeight) setShowExperience(true);
+      }
+
+      if (!showSocialIcons && socialRef.current) {
+        const top = socialRef.current.getBoundingClientRect().top;
+        if (top < windowHeight) setShowSocialIcons(true);
+      }
+    }, 100),
+    [showProjectCards, showExperience, showSocialIcons]
+  );
+
+  // Add scroll listener
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // trigger once on mount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   return (
     <div className="app-wrapper">
@@ -67,32 +69,39 @@ export default function App() {
         <Saturn />
       </div>
 
-      {/* Main content appears after loader shrinks */}
+      {/* Main content */}
       <div className={`main-content ${loading ? "" : "visible"}`}>
-        {showProfileCard && (
-          <div className="content-section profile-card">
+        {/* Profile Card always appears after loader */}
+        {!loading && (
+          <div className="content-section profile-card visible">
             <ProfileCard />
           </div>
         )}
-        
-        {showProjectCards && (
-          <div className="content-section project-cards">
-            <ProjectCards />
-          </div>
-        )}
-        
-        {showExperience && (
-          <div className="content-section experience">
-            <Experience />
-          </div>
-        )}
-        
-        {showSocialIcons && (
-          <div className="content-section social-icons">
-            <SocialIcons />
-          </div>
-        )}
-      </div> {/* Closing tag for main-content */}
+
+        {/* Project Cards */}
+        <div
+          ref={projectRef}
+          className={`content-section project-cards ${showProjectCards ? "visible" : ""}`}
+        >
+          {showProjectCards && <ProjectCards />}
+        </div>
+
+        {/* Experience */}
+        <div
+          ref={experienceRef}
+          className={`content-section experience ${showExperience ? "visible" : ""}`}
+        >
+          {showExperience && <Experience />}
+        </div>
+
+        {/* Social Icons */}
+        <div
+          ref={socialRef}
+          className={`content-section social-icons ${showSocialIcons ? "visible" : ""}`}
+        >
+          {showSocialIcons && <SocialIcons />}
+        </div>
+      </div>
     </div>
   );
 }

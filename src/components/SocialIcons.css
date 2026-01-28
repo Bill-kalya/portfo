@@ -1,0 +1,164 @@
+/* Container */
+.social-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1f2937, #111827);
+  color: white;
+  font-family: system-ui, sans-serif;
+}
+
+/* Header */
+.social-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.social-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.social-header p {
+  color: #d1d5db;
+  font-size: 1.125rem;
+}
+
+/* Icons Grid */
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Icon Wrapper */
+.icon-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  z-index: 50;
+}
+
+.tooltip.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow:
+    inset 5px 5px 5px rgba(0,0,0,0.2),
+    inset -5px -5px 15px rgba(255,255,255,0.1),
+    5px 5px 15px rgba(0,0,0,0.3),
+    -5px -5px 15px rgba(255,255,255,0.1);
+}
+
+.tooltip-header {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-icon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+  border: 1px solid white;
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.tooltip-name {
+  font-weight: bold;
+}
+
+.tooltip-username {
+  font-size: 0.875rem;
+  color: #d1d5db;
+}
+
+.tooltip-about {
+  text-align: center;
+  background: #374151;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: white;
+}
+
+/* Icon */
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.icon-bg {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: #4b5563;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.icon-bg:hover {
+  transform: rotate(-10deg) skewX(10deg);
+}
+
+.icon-svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.icon-label {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.icon-label.visible {
+  opacity: 1;
+}
+
+/* Footer */
+.social-footer {
+  margin-top: 4rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  border-top: 1px solid #374151;
+  padding-top: 1.25rem;
+}
