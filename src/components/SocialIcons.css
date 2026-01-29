@@ -1,48 +1,21 @@
-/* Container */
-.social-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2rem;
-  background: linear-gradient(135deg, #1f2937, #111827);
-  color: white;
-  font-family: system-ui, sans-serif;
-}
 
-/* Header */
-.social-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
+/* SocialIcons.css */
 
-.social-header h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  background: linear-gradient(to right, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.social-header p {
-  color: #d1d5db;
-  font-size: 1.125rem;
-}
-
-/* Icons Grid */
+/* Grid Container - 3 Column Layout */
 .icons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  align-items: center;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-/* Icon Wrapper */
+/* Wrapper */
 .icon-wrapper {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 /* Tooltip */
@@ -51,46 +24,40 @@
   top: -140px;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s;
-  z-index: 50;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 10;
 }
 
 .tooltip.active {
   opacity: 1;
-  visibility: visible;
 }
 
 .tooltip-content {
   background: #1f2937;
   border: 1px solid #374151;
-  border-radius: 1rem;
+  border-radius: 14px;
   padding: 1rem;
   box-shadow:
-    inset 5px 5px 5px rgba(0,0,0,0.2),
-    inset -5px -5px 15px rgba(255,255,255,0.1),
-    5px 5px 15px rgba(0,0,0,0.3),
-    -5px -5px 15px rgba(255,255,255,0.1);
+    inset 0 0 10px rgba(0,0,0,0.6),
+    0 10px 25px rgba(0,0,0,0.6);
 }
 
 .tooltip-header {
   display: flex;
   gap: 0.75rem;
-  margin-bottom: 0.5rem;
 }
 
 .tooltip-icon {
-  width: 3rem;
-  height: 3rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.25rem;
-  border: 1px solid white;
-  border-radius: 0.5rem;
   background: white;
 }
 
@@ -99,52 +66,70 @@
 }
 
 .tooltip-username {
-  font-size: 0.875rem;
-  color: #d1d5db;
+  font-size: 0.8rem;
+  color: #9ca3af;
 }
 
 .tooltip-about {
-  text-align: center;
+  margin-top: 0.5rem;
   background: #374151;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 /* Icon */
 .icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
+  text-align: center;
 }
 
 .icon-bg {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 64px;
+  height: 64px;
+  background: #111827;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
-  background: #4b5563;
   position: relative;
   transition: transform 0.3s;
 }
 
-.icon-bg:hover {
-  transform: rotate(-10deg) skewX(10deg);
+/* Tilt */
+.icon:hover .icon-bg {
+  transform: rotate(-18deg) skew(10deg);
 }
 
-.icon-svg {
-  width: 1.75rem;
-  height: 1.75rem;
+/* Shadow Frames */
+.frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  border: 1px solid var(--glow);
+  opacity: 0;
+  transition: 0.3s;
 }
 
+.f1 { transform: translate(4px, -4px); opacity: 0.25; }
+.f2 { transform: translate(8px, -8px); opacity: 0.45; }
+.f3 { transform: translate(12px, -12px); opacity: 0.75; }
+
+.icon:hover .frame {
+  opacity: 1;
+}
+
+/* Emoji Icon */
+.icon-emoji {
+  font-size: 26px;
+  z-index: 2;
+}
+
+/* Label */
 .icon-label {
+  display: block;
   margin-top: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.85rem;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -152,13 +137,14 @@
 .icon-label.visible {
   opacity: 1;
 }
+.icon-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  z-index: 2;
+}
 
-/* Footer */
-.social-footer {
-  margin-top: 4rem;
-  text-align: center;
-  color: #9ca3af;
-  font-size: 0.875rem;
-  border-top: 1px solid #374151;
-  padding-top: 1.25rem;
+.tooltip-icon img {
+  width: 22px;
+  height: 22px;
 }

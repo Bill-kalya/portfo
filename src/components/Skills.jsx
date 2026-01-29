@@ -46,48 +46,57 @@ const SkillsCard = ({ backText, badge, title, footer, frontBg }) => {
 
 const Skills = () => {
   return (
-    <div className="skills-container">
+    <div className="skills-section">
+      {/* Header Section */}
+      <div className="skills-header">
+        <h1 className="skills-title">Skills</h1>
+        <p className="skills-subtitle">These are the acquired skill cards. More to come...</p>
+      </div>
 
-      <SkillsCard
-        backText="Programming Languages"
-        badge="CORE"
-        title="Programming"
-        footer="Logic • Algorithms • Performance"
-        frontBg={progImg}
-      />
+      {/* Cards Container */}
+      <div className="skills-container">
 
-      <SkillsCard
-        backText="Frontend Development"
-        badge="UI / UX"
-        title="Frontend"
-        footer="React • Animations • UX"
-        frontBg={frontendImg}
-      />
+        <SkillsCard
+          backText="Programming Languages"
+          badge="CORE"
+          title="Programming"
+          footer="Logic • Algorithms • Performance"
+          frontBg={progImg}
+        />
 
-      <SkillsCard
-        backText="Backend Development"
-        badge="SERVER"
-        title="Backend"
-        footer="APIs • Databases • Security"
-        frontBg={backendImg}
-      />
+        <SkillsCard
+          backText="Frontend Development"
+          badge="UI / UX"
+          title="Frontend"
+          footer="React • Animations • UX"
+          frontBg={frontendImg}
+        />
 
-      <SkillsCard
-        backText="Web Development"
-        badge="FULL STACK"
-        title="Web"
-        footer="Modern • Scalable • Fast"
-        frontBg={webImg}
-      />
+        <SkillsCard
+          backText="Backend Development"
+          badge="SERVER"
+          title="Backend"
+          footer="APIs • Databases • Security"
+          frontBg={backendImg}
+        />
 
-      <SkillsCard
-        backText="Mobile Development"
-        badge="MOBILE"
-        title="Mobile"
-        footer="Flutter • Android • UX"
-        frontBg={mobileImg}
-      />
+        <SkillsCard
+          backText="Web Development"
+          badge="FULL STACK"
+          title="Web"
+          footer="Modern • Scalable • Fast"
+          frontBg={webImg}
+        />
 
+        <SkillsCard
+          backText="Mobile Development"
+          badge="MOBILE"
+          title="Mobile"
+          footer="Flutter • Android • UX"
+          frontBg={mobileImg}
+        />
+
+      </div>
     </div>
   );
 };
