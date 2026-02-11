@@ -1,0 +1,2 @@
+- [ ] Remove Jost font import from src/components/projects.css
+- [ ] Change font-family in src/components/projects.css to 'Monad'

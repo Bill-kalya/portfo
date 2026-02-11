@@ -4,6 +4,8 @@ import './ProfileCard.css';
 // Import images from assets
 import pic1 from '../assets/pic1.png';
 import pic2 from '../assets/pic2.png';
+import typeSound from '../assets/sounds/Sci Fi Typewriter.m4a';
+
 
 const ProfileCard = () => {
   const detailsRef = useRef(null);
@@ -21,44 +23,86 @@ const ProfileCard = () => {
     "A qualified IT professional with a strong foundation in Information Science and Technology. Having recently completed my studies, I'm currently seeking opportunities to apply my skills in web and mobile development. I'm passionate about creating innovative solutions that drive real-world impact."
   ];
 
-  const typeLine = (lines, container, callback) => {
-    let lineIndex = 0;
-    let charIndex = 0;
+  const audioRef = useRef(null);
 
-    function type() {
-      if (lineIndex < lines.length) {
-        let currentLine = lines[lineIndex];
-        if (charIndex <= currentLine.length) {
-          container.innerHTML =
-            lines.slice(0, lineIndex).join('') +
-            currentLine.substring(0, charIndex) +
-            '|';
-          charIndex++;
-          setTimeout(type, 20);
-        } else {
-          lineIndex++;
-          charIndex = 0;
-          setTimeout(type, 400);
-        }
-      } else {
-        container.innerHTML = lines.join('');
-        if (callback) callback();
+  useEffect(() => {
+    const audio = new Audio(typeSound);
+    audio.volume = 0.25; // subtle sci-fi level
+    audioRef.current = audio;
+  }, []);
+
+  useEffect(() => {
+    const unlock = () => {
+      if (audioRef.current) {
+        audioRef.current.play().then(() => {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }).catch(() => {});
       }
-    }
+      document.removeEventListener("click", unlock);
+    };
 
-    type();
-  };
+    document.addEventListener("click", unlock);
+  }, []);
 
   useEffect(() => {
     const detailsEl = detailsRef.current;
     const glowEl = glowRef.current;
 
+    if (!detailsEl || !glowEl) return;
+
     typeLine(detailsLines, detailsEl, () => {
       typeLine(glowLines, glowEl, () => {
-        setShowFinalPic(true); // trigger final picture animation
+        setShowFinalPic(true);
       });
     });
   }, []);
+
+  const typeLine = (lines, container, callback) => {
+  let lineIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (lineIndex < lines.length) {
+      let currentLine = lines[lineIndex];
+
+      if (charIndex <= currentLine.length) {
+        container.innerHTML =
+          lines.slice(0, lineIndex).join('') +
+          currentLine.substring(0, charIndex) +
+          '|';
+
+        const currentChar = currentLine.charAt(charIndex - 1);
+
+        // Play sound only for visible characters
+        if (
+          audioRef.current &&
+          currentChar &&
+          currentChar !== ' ' &&
+          currentChar !== '<' &&
+          currentChar !== '>' &&
+          !/[/=]/.test(currentChar)
+        ) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play().catch(() => {});
+        }
+
+        charIndex++;
+        setTimeout(type, 20);
+      } else {
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(type, 350);
+      }
+    } else {
+      container.innerHTML = lines.join('');
+      if (callback) callback();
+    }
+  }
+
+  type();
+};
+
 
   return (
     <div className="card">

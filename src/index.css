@@ -1,6 +1,11 @@
 /* ------------------------------
    Base document sizing
 --------------------------------*/
+@font-face {
+  font-family: 'Monad';
+  src: url('./assets/fonts/Monad.otf') format('opentype');
+}
+
 html,
 body,
 #root {
@@ -12,7 +17,7 @@ body,
 
 /* Base font and text styles */
 body {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Monad', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 
   background-color: hsl(var(--bg-main));
