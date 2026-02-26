@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SocialIcons.css';
 
-// Import all images (keeping your original imports)
 import whatimg from '../assets/whatsapp.png';
 import discordimg from '../assets/discord.png';
 import gitimg from '../assets/github.png';
@@ -11,20 +10,6 @@ import linkedinimg from '../assets/linkedin.png';
 import phoneimg from '../assets/phone.png';
 
 const SocialIcons = () => {
-  const [activeTooltip, setActiveTooltip] = useState(null);
-
-  // Create an images object for debugging
-  const images = {
-    whatsapp: whatimg,
-    discord: discordimg,
-    github: gitimg,
-    gmail: gmailimg,
-    instagram: instaimg,
-    linkedin: linkedinimg,
-    phone: phoneimg
-  };
-
-  console.log('Imported images:', images);
 
   const socials = [
     {
@@ -33,6 +18,7 @@ const SocialIcons = () => {
       username: '+254 748 623 579',
       about: 'Call / SMS',
       color: '#22c55e',
+      link: 'tel:+254748623579',
       icon: phoneimg
     },
     {
@@ -41,6 +27,7 @@ const SocialIcons = () => {
       username: '+254 113 120 076',
       about: 'Chat on WhatsApp',
       color: '#25D366',
+      link: 'https://wa.me/254113120076',
       icon: whatimg
     },
     {
@@ -49,22 +36,25 @@ const SocialIcons = () => {
       username: 'kalya#0001',
       about: 'Gaming / Dev',
       color: '#5865F2',
+      link: 'https://discord.com/users/1138747700532232213',
       icon: discordimg
     },
     {
       id: 'linkedin',
       name: 'LinkedIn',
-      username: 'linkedin.com/in/kalya',
+      username: 'linkedin.com/in/bill-kalya',
       about: 'Professional Profile',
       color: '#0A66C2',
+      link: 'https://www.linkedin.com/in/bill-kalya',
       icon: linkedinimg
     },
     {
       id: 'instagram',
       name: 'Instagram',
-      username: '@kalya.dev',
+      username: '@bill_kalya',
       about: 'Visual Updates',
       color: '#e6683c',
+      link: 'https://www.instagram.com/bill_kalya',
       icon: instaimg
     },
     {
@@ -73,47 +63,45 @@ const SocialIcons = () => {
       username: 'kalyakiprono2003@gmail.com',
       about: 'Send Email',
       color: '#EA4335',
+      link: 'https://mail.google.com/mail/?view=cm&fs=1&to=kalyakiprono2003@gmail.com',
       icon: gmailimg
     },
     {
       id: 'github',
       name: 'GitHub',
-      username: 'github.com/kalya',
-      about: 'Source Code',
+      username: 'github.com/Bill-kalya',
+      about: 'Bill-kalya',
       color: '#ffffff',
+      link: 'https://github.com/Bill-kalya',
       icon: gitimg
     },
     {
       id: 'x',
       name: 'X (Twitter)',
-      username: '@kalya',
+      username: 'cal_yaBill',
       about: 'Tech Thoughts',
       color: '#ffffff',
+      link: 'https://x.com/cal_yaBill',
       icon: '𝕏'
     }
   ];
 
   return (
     <div className="social-icons-section">
-      {/* HEADER SECTION - ONLY ADDITION */}
+
       <div className="social-header">
         <h1 className="social-title">Connect With Me</h1>
         <p className="social-subtitle">
           Reach out through any of these platforms. I'm always open to connecting!
         </p>
       </div>
-      
-      {/* ORIGINAL ICONS GRID - UNCHANGED */}
+
       <div className="icons-grid">
         {socials.map((s) => (
-          <div
-            key={s.id}
-            className="icon-wrapper"
-            onMouseEnter={() => setActiveTooltip(s.id)}
-            onMouseLeave={() => setActiveTooltip(null)}
-          >
+          <div key={s.id} className="icon-wrapper">
+
             {/* Tooltip */}
-            <div className={`tooltip ${activeTooltip === s.id ? 'active' : ''}`}>
+            <div className="tooltip">
               <div className="tooltip-content">
                 <div className="tooltip-header">
                   <div
@@ -121,32 +109,51 @@ const SocialIcons = () => {
                     style={{ borderColor: s.color }}
                   >
                     {s.id === 'x' ? (
-                      s.icon
+                      <span className="icon-emoji">{s.icon}</span>
                     ) : (
-                      <img 
-                        src={s.icon} 
-                        alt={s.name}
-                        onError={(e) => {
-                          console.error(`Failed to load ${s.name} icon:`, s.icon);
-                          e.target.style.display = 'none';
-                        }}
-                      />
+                      <img src={s.icon} alt={s.name} />
                     )}
                   </div>
+
                   <div>
-                    <div className="tooltip-name" style={{ color: s.color }}>
+                    <div
+                      className="tooltip-name"
+                      style={{ color: s.color }}
+                    >
                       {s.name}
                     </div>
-                    <div className="tooltip-username">{s.username}</div>
+                    <div className="tooltip-username">
+                      {s.username}
+                    </div>
                   </div>
                 </div>
-                <div className="tooltip-about">{s.about}</div>
+
+                <div
+                  className="tooltip-about"
+                  onClick={() => {
+                    if (s.link.startsWith('mailto:')) {
+                      window.location.href = s.link;
+                    } else {
+                      window.open(s.link, '_blank');
+                    }
+                  }}
+                >
+                  {s.about}
+                </div>
               </div>
             </div>
 
-            {/* Icon */}
-            <div className="icon">
-              <div className="icon-bg" style={{ '--glow': s.color }}>
+            {/* Clickable Icon */}
+            <a
+              href={s.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon"
+            >
+              <div
+                className="icon-bg"
+                style={{ '--glow': s.color }}
+              >
                 <span className="frame f1" />
                 <span className="frame f2" />
                 <span className="frame f3" />
@@ -154,23 +161,19 @@ const SocialIcons = () => {
                 {s.id === 'x' ? (
                   <span className="icon-emoji">{s.icon}</span>
                 ) : (
-                  <img 
-                    className="icon-img" 
-                    src={s.icon} 
+                  <img
+                    className="icon-img"
+                    src={s.icon}
                     alt={s.name}
-                    onError={(e) => {
-                      console.error(`Failed to load ${s.name} icon:`, s.icon);
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = s.name.charAt(0);
-                    }}
                   />
                 )}
               </div>
 
-              <span className={`icon-label ${activeTooltip === s.id ? 'visible' : ''}`}>
+              <span className="icon-label">
                 {s.name}
               </span>
-            </div>
+            </a>
+
           </div>
         ))}
       </div>

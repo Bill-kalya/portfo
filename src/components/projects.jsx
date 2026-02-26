@@ -1,5 +1,7 @@
 import React from 'react';
 import './projects.css';
+import frameimg from '../assets/frame-animation.png';
+import arborealimg from '../assets/arboreal.png';
 
 const ProjectCards = () => {
   const projects = [
@@ -12,16 +14,20 @@ const ProjectCards = () => {
     },
     {
       id: 2,
-      title: "Mobile Health App",
-      description: "Created a mobile application to track and monitor health metrics using React Native. Improved user engagement and received positive feedback from beta testers.",
+      title: "Arboreal Archive",
+      description: "Explore, learn, and compare tree species — their categories, life spans, and unique traits — all in one interactive digital forest.",
       imageAlt: "mobile app",
+      image: arborealimg,
+      link: "https://bill-kalya.github.io/arboreal_archive/",
       buttonText: "View More"
     },
     {
       id: 3,
-      title: "University Event Management System",
-      description: "Developed a web-based system for managing university events and registrations using Angular, Node.js, and MongoDB. Streamlined event management process, reducing manual work by 50%.",
-      imageAlt: "mobile app",
+      title: "Frame-Animation",
+      description: "A sleek, fluid animation that brings modern elegance and movement to any webpage.",
+      imageAlt: "frame animation",
+      image: frameimg,
+      link: "https://bill-kalya.github.io/frame-animation/",
       buttonText: "View More"
     }
   ];
@@ -35,13 +41,24 @@ const ProjectCards = () => {
         {projects.map(project => (
           <div className="card" key={project.id}>
             <div className="card-img-shadow">
-              <div className="image-placeholder">
-                <div className="placeholder-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 16L8 12L11.5 15.5L14.5 12.5L16 14L20 10M4 16V20H20V4H4V16Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+              {project.image ? (
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <img src={project.image} alt={project.imageAlt || project.title} style={{ cursor: 'pointer' }} />
+                </a>
+              ) : (
+                <div className="image-placeholder">
+                  <div className="placeholder-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M4 16L8 12L11.5 15.5L14.5 12.5L16 14L20 10M4 16V20H20V4H4V16Z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className="card-content">
               <h2>{project.title}</h2>

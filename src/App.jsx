@@ -4,6 +4,7 @@ import ProfileCard from "./components/profilecard";
 import Skills from "./components/Skills.jsx";
 import ProjectCards from "./components/projects";
 import SocialIcons from "./components/socialicons.jsx";
+import SpaceBackground from "./components/SpaceBackground";
 import "./App.css";
 
 export default function App() {
@@ -68,6 +69,8 @@ export default function App() {
       <div className={`loader-wrapper ${loading ? "" : "shrink"}`}>
         <Saturn />
       </div>
+
+      <SpaceBackground />
 
       {/* Main content */}
       <div className={`main-content ${loading ? "" : "visible"}`}>
