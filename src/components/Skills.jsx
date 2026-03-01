@@ -8,19 +8,11 @@ import backendImg from '../assets/backend.png';
 import webImg from '../assets/web.jpeg';
 import mobileImg from '../assets/mobile.jpeg';
 
-const SkillsCard = ({ backText, badge, title, footer, frontBg }) => {
+const SkillsCard = ({ skills, badge, title, frontBg }) => {
   return (
     <div className="skills-card">
       <div className="content">
 
-        {/* BACK */}
-        <div className="back">
-          <div className="back-content">
-            <strong>{backText}</strong>
-          </div>
-        </div>
-
-        {/* FRONT */}
         <div
           className="front"
           style={{ backgroundImage: `url(${frontBg})` }}
@@ -34,8 +26,32 @@ const SkillsCard = ({ backText, badge, title, footer, frontBg }) => {
               <p className="title-text">
                 <strong>{title}</strong>
               </p>
-              <p className="card-footer">{footer}</p>
+
+              {skills.map((skill, index) => (
+                <div className="skill-item" key={index}>
+                  <div className="skill-name">
+                    <span>{skill.name}</span>
+                    <span>{skill.level}%</span>
+                  </div>
+                  <div className="skill-bar">
+                    <div
+                      className="skill-progress"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+
             </div>
+          </div>
+        </div>
+
+        {/* back face */}
+        <div className="back">
+          <div className="back-content">
+            {/* you can customise what shows on the reverse of the card */}
+            <strong>{title}</strong>
+            {/*<p>Details about {title} skills</p>*/}
           </div>
         </div>
 
@@ -57,48 +73,63 @@ const Skills = () => {
       <div className="skills-container">
 
         <SkillsCard
-          backText="Programming Languages"
           badge="CORE"
-          title="Programming"
-          footer="Logic • Algorithms • Performance"
+          title="Programming Languages"
           frontBg={progImg}
+          skills={[
+            { name: "C++", level: 95 },
+            { name: "Java", level: 90 },
+            { name: "Python", level: 80 },
+            { name: "C#", level: 75 },
+            { name: "C", level: 85 },
+          ]}
         />
 
         <SkillsCard
-          backText="Frontend Development"
           badge="UI / UX"
-          title="Frontend"
-          footer="React • Animations • UX"
+          title="Frontend Design"
           frontBg={frontendImg}
+          skills={[
+            { name: "HTML/CSS", level: 95 },
+            { name: "JavaScript", level: 90 },
+            { name: "React", level: 45 },
+          ]}
         />
 
         <SkillsCard
-          backText="Backend Development"
           badge="SERVER"
-          title="Backend"
-          footer="APIs • Databases • Security"
+          title="Backend Development"
           frontBg={backendImg}
+          skills={[
+            { name: "Node.js", level: 88 },
+            { name: "Python/Flask", level: 82 },
+            { name: "Java/Springboot", level: 75 },
+            { name: "Postgres SQL", level: 25 },
+          ]}
         />
 
         <SkillsCard
-          backText="Web Development"
           badge="FULL STACK"
-          title="Web"
-          footer="Modern • Scalable • Fast"
+          title="Web Development"
           frontBg={webImg}
+          skills={[
+            { name: "React", level: 43 },
+            { name: "HTML/CSS/JS", level: 78 },
+          ]}
         />
 
         <SkillsCard
-          backText="Mobile Development"
           badge="MOBILE"
-          title="Mobile"
-          footer="Flutter • Android • UX"
+          title="Mobile Development"
           frontBg={mobileImg}
+          skills={[
+            { name: "React Native", level: 43 },
+            { name: "Flutter", level: 78 },
+          ]}
         />
 
       </div>
     </div>
   );
 };
-
 export default Skills;

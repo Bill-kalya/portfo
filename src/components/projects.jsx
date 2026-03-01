@@ -15,7 +15,7 @@ const ProjectCards = () => {
     {
       id: 2,
       title: "Arboreal Archive",
-      description: "Explore, learn, and compare tree species — their categories, life spans, and unique traits — all in one interactive digital forest.",
+      description: "Explore, learn, and compare tree species all in one interactive digital forest.",
       imageAlt: "mobile app",
       image: arborealimg,
       link: "https://bill-kalya.github.io/arboreal_archive/",

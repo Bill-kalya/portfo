@@ -73,7 +73,8 @@
 .profile-details {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;;
+  justify-content: space-between;
+  gap: 30px;
 }
 
 .profile-pic {
@@ -142,19 +143,6 @@ h1 {
   text-shadow: 0 0 5px #ffffff55;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .profile-pic {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-}
 .profile-pic {
   position: relative;
   width: 250px;
@@ -214,5 +202,81 @@ h1 {
   100% {
     top: 0;
     opacity: 1;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+  .profile-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-pic {
+    width: 220px;
+    height: 220px;
+    margin-right: 0;
+  }
+
+  .details {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .details p {
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+  }
+
+  .profile-pic {
+    width: 180px;
+    height: 180px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+
+  .details span {
+    min-width: auto;
+    display: inline;
+  }
+
+  .glow-box {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+@media (max-width: 400px) {
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .details p {
+    font-size: 0.9rem;
   }
 }
