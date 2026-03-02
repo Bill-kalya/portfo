@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./spaceBackground.css";
+import "./SpaceBackground.css";
 
 export default function SpaceBackground() {
   useEffect(() => {
