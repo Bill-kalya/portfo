@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './ProfileCard.css';
+import './profilecard.css';
 
 // Import images from assets
 import pic1 from '../assets/pic1.png';
