@@ -18,6 +18,7 @@
   width: 190px;
   height: 254px;
   perspective: 1000px;
+  animation: breatheFloat 4s ease-in-out infinite;
 }
 
 /* ===== CARD CORE ===== */
@@ -296,4 +297,22 @@
   background: linear-gradient(90deg, #00ffff, #00ff99);
   border-radius: 6px;
   transition: width 1s ease;
+}
+@keyframes breatheFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.skills-card:nth-child(odd) {
+  animation-delay: 0s;
+}
+
+.skills-card:nth-child(even) {
+  animation-delay: 2s;
 }
