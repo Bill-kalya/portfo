@@ -1,16 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./saturn.css";
 
 const Saturn = () => {
-  const [shrink, setShrink] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShrink(true);
-    }, 4000); // Adjust delay based on when loading finishes
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
       <div className="nebula"></div>
@@ -21,7 +12,7 @@ const Saturn = () => {
         <div className="star-layer"></div>
       </div>
 
-      <div className={`hologram-wrapper ${shrink ? "shrink" : ""}`}>
+      <div className="hologram-wrapper">
         <div className="loader-container">
           <div className="hologram-platform"></div>
           <div className="platform-rings">

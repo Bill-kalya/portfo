@@ -2,14 +2,17 @@ import React from 'react';
 import './projects.css';
 import frameimg from '../assets/frame-animation.png';
 import arborealimg from '../assets/arboreal.png';
+import farmhandimg from '../assets/farmhand.png';
 
 const ProjectCards = () => {
   const projects = [
     {
       id: 1,
-      title: "E-commerce Website Development",
-      description: "Developed a fully functional e-commerce website for a local business using HTML, CSS, and JavaScript. Increased the client's online sales by 30% within the first three months.",
+      title: "Farmhand",
+      description: "Smart Market place for Connecting Farmers, Stores & Laborers in Real-Time",
       imageAlt: "website",
+      image: farmhandimg,
+      link: "https://bill-kalya.github.io/farmhand/",
       buttonText: "View More"
     },
     {

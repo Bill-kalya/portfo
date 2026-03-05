@@ -20,7 +20,7 @@ export default function App() {
 
   // Loader effect
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000); // allow loader animation
+    const timer = setTimeout(() => setLoading(false), 5000); // allow loader animation
     return () => clearTimeout(timer);
   }, []);
 
