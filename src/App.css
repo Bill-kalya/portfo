@@ -1,58 +1,212 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  position: relative; /* Added for proper stacking */
+/* ─── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --section-pad-mobile: 2rem 1rem;
+  --section-pad-tablet: 2.5rem 1.5rem;
+  --section-pad-desktop: 3rem 2rem;
+  --max-width: 1280px;
+  --root-pad-mobile: 0.75rem;
+  --root-pad-tablet: 1.25rem;
+  --root-pad-desktop: 2rem;
+  --divider: rgba(255, 255, 255, 0.07);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Loader Styles */
+/* ─── Reset ─────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ─── Root ──────────────────────────────────────────────────── */
+#root {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--root-pad-mobile);
+  text-align: center;
+  position: relative;
+  width: 100%;
+
+  /* Prevent scroll-clip / nested scroll containers */
+  height: auto !important;
+  min-height: 100vh;
+  overflow: visible !important;
+}
+
+
+@media (min-width: 480px) {
+  #root { padding: var(--root-pad-tablet); }
+}
+
+@media (min-width: 768px) {
+  #root { padding: var(--root-pad-desktop); }
+}
+
+/* ─── App Wrapper ───────────────────────────────────────────── */
 .app-wrapper {
   position: relative;
   min-height: 100vh;
+  width: 100%;
+
+  /* Ensure only document scrolling */
+  overflow-x: hidden; /* prevent horizontal scroll on mobile */
+  overflow-y: visible;
+  height: auto !important;
 }
 
+
+
+/* ─── Loader ────────────────────────────────────────────────── */
 .loader-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #1a1a1a; /* Dark background for loader */
+  background: #0d0d12;
   z-index: 1000;
-  transition: all 1s ease;
+  transition:
+    opacity 0.8s var(--ease-smooth),
+    transform 1s var(--ease-smooth);
 }
 
 .loader-wrapper.shrink {
-  transform: scale(0);
   opacity: 0;
+  transform: scale(1.08);
   pointer-events: none;
 }
 
+.loader-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Scale Saturn down on very small screens */
+  transform: scale(0.7);
+}
+
+@media (min-width: 480px) {
+  .loader-inner { transform: scale(0.85); }
+}
+
+@media (min-width: 768px) {
+  .loader-inner { transform: scale(1); }
+}
+
+.loader-pulse {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120, 80, 255, 0.18) 0%, transparent 70%);
+  animation: pulse-ring 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(0.9); opacity: 0.5; }
+  50%       { transform: scale(1.2); opacity: 1;   }
+}
+
+/* ─── Main Content ──────────────────────────────────────────── */
 .main-content {
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s var(--ease-smooth),
+    transform 0.7s var(--ease-smooth);
+  will-change: opacity, transform;
+  width: 100%;
 }
 
 .main-content.visible {
   opacity: 1;
+  transform: translateY(0);
 }
 
+/* ─── Section Base ──────────────────────────────────────────── */
 .content-section {
-  padding: 3rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--section-pad-mobile);
+  border-bottom: 1px solid var(--divider);
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.75s var(--ease-smooth),
+    transform 0.75s var(--ease-smooth);
+  will-change: opacity, transform;
+  width: 100%;
 }
 
-/* Existing styles below - unchanged */
+@media (min-width: 480px) {
+  .content-section { padding: var(--section-pad-tablet); }
+}
+
+@media (min-width: 768px) {
+  .content-section { padding: var(--section-pad-desktop); }
+}
+
+.content-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Section Stagger ───────────────────────────────────────── */
+.profile-section  { transition-delay: 0ms;   }
+.project-section  { transition-delay: 60ms;  }
+.skills-section   { transition-delay: 120ms; }
+.social-section   { transition-delay: 180ms; }
+
+/* ─── Profile Section ───────────────────────────────────────── */
+.profile-section {
+  /* Allow card to be full width on mobile */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ─── Project Section ───────────────────────────────────────── */
+.project-section {
+  /* Project cards grid adjusts inside ProjectCards component,
+     but give the section room to breathe on all sizes */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ─── Skills Section ────────────────────────────────────────── */
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ─── Social Section ────────────────────────────────────────── */
+.social-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 3rem;
+  border-bottom: none;
+}
+
+/* ─── Logo (unchanged) ──────────────────────────────────────── */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
+@media (max-width: 480px) {
+  .logo {
+    height: 4em;
+    padding: 1em;
+  }
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -61,12 +215,8 @@
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -75,10 +225,40 @@
   }
 }
 
+/* ─── Card ──────────────────────────────────────────────────── */
 .card {
-  padding: 2em;
+  padding: 1.25em;
+}
+
+@media (min-width: 480px) {
+  .card { padding: 1.75em; }
+}
+
+@media (min-width: 768px) {
+  .card { padding: 2em; }
 }
 
 .read-the-docs {
   color: #888;
+}
+
+/* ─── Fluid Typography Helper ───────────────────────────────── */
+html {
+  font-size: clamp(14px, 1.5vw, 16px);
+}
+
+/* ─── Reduced-motion Safety Net ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .loader-wrapper,
+  .main-content,
+  .content-section,
+  .loader-pulse {
+    transition: none !important;
+    animation: none !important;
+  }
+  .main-content,
+  .content-section {
+    opacity: 1;
+    transform: none;
+  }
 }

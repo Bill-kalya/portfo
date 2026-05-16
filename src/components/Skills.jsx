@@ -1,4 +1,3 @@
-// Skills.jsx
 import React from 'react';
 import './Skills.css';
 
@@ -13,20 +12,12 @@ const SkillsCard = ({ skills, badge, title, frontBg }) => {
     <div className="skills-card">
       <div className="content">
 
-        <div
-          className="front"
-          style={{ backgroundImage: `url(${frontBg})` }}
-        >
+        <div className="front" style={{ backgroundImage: `url(${frontBg})` }}>
           <div className="overlay" />
-
           <div className="front-content">
             <small className="badge">{badge}</small>
-
             <div className="description">
-              <p className="title-text">
-                <strong>{title}</strong>
-              </p>
-
+              <p className="title-text"><strong>{title}</strong></p>
               {skills.map((skill, index) => (
                 <div className="skill-item" key={index}>
                   <div className="skill-name">
@@ -41,17 +32,13 @@ const SkillsCard = ({ skills, badge, title, frontBg }) => {
                   </div>
                 </div>
               ))}
-
             </div>
           </div>
         </div>
 
-        {/* back face */}
         <div className="back">
           <div className="back-content">
-            {/* you can customise what shows on the reverse of the card */}
             <strong>{title}</strong>
-            {/*<p>Details about {title} skills</p>*/}
           </div>
         </div>
 
@@ -63,73 +50,65 @@ const SkillsCard = ({ skills, badge, title, frontBg }) => {
 const Skills = () => {
   return (
     <div className="skills-section">
-      {/* Header Section */}
       <div className="skills-header">
         <h1 className="skills-title">Skills</h1>
-        <p className="skills-subtitle">These are the acquired skill cards. More to come...</p>
+        <p className="skills-subtitle">These are the acquired skill cards. More to come…</p>
       </div>
-
-      {/* Cards Container */}
       <div className="skills-container">
-
         <SkillsCard
           badge="CORE"
           title="Programming Languages"
           frontBg={progImg}
           skills={[
-            { name: "C++", level: 95 },
-            { name: "Java", level: 90 },
+            { name: "C++",    level: 95 },
+            { name: "Java",   level: 90 },
             { name: "Python", level: 80 },
-            { name: "C#", level: 75 },
-            { name: "C", level: 85 },
+            { name: "C#",     level: 75 },
+            { name: "C",      level: 85 },
           ]}
         />
-
         <SkillsCard
           badge="UI / UX"
           title="Frontend Design"
           frontBg={frontendImg}
           skills={[
-            { name: "HTML/CSS", level: 95 },
-            { name: "JavaScript", level: 90 },
-            { name: "React", level: 45 },
+            { name: "HTML/CSS",    level: 95 },
+            { name: "JavaScript",  level: 90 },
+            { name: "React",       level: 45 },
           ]}
         />
-
         <SkillsCard
           badge="SERVER"
           title="Backend Development"
           frontBg={backendImg}
           skills={[
-            { name: "Node.js", level: 88 },
-            { name: "Python/Flask", level: 82 },
+            { name: "Node.js",         level: 88 },
+            { name: "Python/Flask",    level: 82 },
             { name: "Java/Springboot", level: 75 },
-            { name: "Postgres SQL", level: 25 },
+            { name: "Postgres SQL",    level: 25 },
           ]}
         />
-
         <SkillsCard
           badge="FULL STACK"
           title="Web Development"
           frontBg={webImg}
           skills={[
-            { name: "React", level: 43 },
+            { name: "React",       level: 43 },
             { name: "HTML/CSS/JS", level: 78 },
           ]}
         />
-
         <SkillsCard
           badge="MOBILE"
           title="Mobile Development"
           frontBg={mobileImg}
           skills={[
             { name: "React Native", level: 43 },
-            { name: "Flutter", level: 78 },
+            { name: "Flutter",      level: 78 },
           ]}
         />
-
       </div>
     </div>
   );
 };
+
 export default Skills;

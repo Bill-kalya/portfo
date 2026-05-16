@@ -1,4 +1,14 @@
-# TODO for Making Social Icons Work on Tooltip Click
+# TODO: Implement IntelPopup Auto-Show After 20s
 
-- [x] Edit src/components/socialicons.jsx: Add onClick handler to the tooltip-about div to open the social link in a new tab.
-- [x] Edit src/components/SocialIcons.css: Add cursor: pointer style to .tooltip-about for better user experience.
+## Steps:
+- [x] User approved plan
+- [ ] 1. Create TODO.md with breakdown
+- [ ] 2. Add IntelPopup import to src/App.jsx
+- [ ] 3. Add showIntelPopup state to src/App.jsx  
+- [ ] 4. Add 20s auto-show useEffect to src/App.jsx
+- [ ] 5. Add conditional IntelPopup render after Footer in src/App.jsx
+- [ ] 6. Verify edits (no linter errors expected)
+- [ ] 7. Test with `npm run dev` (popup after 20s)
+- [ ] 8. Update TODO.md with completion
+- [ ] 9. attempt_completion
+

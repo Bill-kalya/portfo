@@ -1,0 +1,247 @@
+/* ─── Variables ─────────────────────────────────────────────── */
+:root {
+  --footer-pad-mobile:  2rem 1.25rem 1.5rem;
+  --footer-pad-tablet:  2.5rem 2.5rem 1.75rem;
+  --footer-pad-desktop: 3rem 3.75rem 2rem;
+  --footer-radius-mobile:  14px;
+  --footer-radius-desktop: 20px;
+  --cyan: #00ffff;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Footer Shell ──────────────────────────────────────────── */
+.footer {
+  position: relative;
+  margin-top: clamp(3rem, 10vw, 7.5rem);
+  padding: var(--footer-pad-mobile);
+  border-radius: var(--footer-radius-mobile);
+  background: rgba(15, 20, 30, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 255, 0.07);
+  overflow: hidden;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 255, 255, 0.04);
+
+  /* entrance animation state */
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity  0.7s var(--ease-smooth),
+    transform 0.7s var(--ease-spring),
+    box-shadow 0.4s var(--ease-smooth);
+}
+
+@media (min-width: 480px) {
+  .footer {
+    padding: var(--footer-pad-tablet);
+    border-radius: calc((var(--footer-radius-mobile) + var(--footer-radius-desktop)) / 2);
+  }
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding: var(--footer-pad-desktop);
+    border-radius: var(--footer-radius-desktop);
+  }
+}
+
+/* Hover lift */
+.footer:hover {
+  box-shadow:
+    0 16px 56px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(0, 255, 255, 0.08);
+}
+
+/* ─── Visible State ─────────────────────────────────────────── */
+.footer-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Glow Accent Line ──────────────────────────────────────── */
+.footer-glow-line {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.5),
+    rgba(120, 80, 255, 0.5),
+    transparent
+  );
+  animation: glow-sweep 4s ease-in-out infinite alternate;
+}
+
+@keyframes glow-sweep {
+  0%   { opacity: 0.3; transform: scaleX(0.7); }
+  100% { opacity: 0.9; transform: scaleX(1); }
+}
+
+/* ─── Content Row ───────────────────────────────────────────── */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 560px) {
+  .footer-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-wrap: nowrap;
+    gap: 2.5rem;
+  }
+}
+
+/* ─── Left Brand Block ──────────────────────────────────────── */
+.footer-left {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.footer-brand {
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  color: var(--cyan);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 16px rgba(0, 255, 255, 0.4);
+  transition: text-shadow 0.3s var(--ease-smooth);
+}
+
+.footer-brand:hover {
+  text-shadow: 0 0 28px rgba(0, 255, 255, 0.75);
+}
+
+.footer-left p {
+  max-width: 320px;
+  color: #9ca3af;
+  line-height: 1.7;
+  font-size: clamp(0.8rem, 2vw, 0.92rem);
+}
+
+/* ─── Link Columns ──────────────────────────────────────────── */
+.footer-links,
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 0 0 auto;
+  /* On mobile, arrange columns side-by-side */
+  min-width: 100px;
+}
+
+@media (max-width: 559px) {
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  /* Put nav columns in a row on mobile */
+  .footer-links,
+  .footer-social {
+    display: inline-flex;
+  }
+
+  .footer-cols-row {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+.footer-col-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(0, 255, 255, 0.45);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.footer-links a,
+.footer-social a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  position: relative;
+  width: fit-content;
+  transition: color 0.25s var(--ease-smooth);
+}
+
+/* Underline slide-in on hover */
+.footer-links a::after,
+.footer-social a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--cyan);
+  transition: width 0.3s var(--ease-smooth);
+}
+
+.footer-links a:hover,
+.footer-social a:hover {
+  color: var(--cyan);
+}
+
+.footer-links a:hover::after,
+.footer-social a:hover::after {
+  width: 100%;
+}
+
+/* ─── Divider ───────────────────────────────────────────────── */
+.footer-divider {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+}
+
+/* ─── Bottom Bar ────────────────────────────────────────────── */
+.footer-bottom {
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  text-align: center;
+  color: #4b5563;
+  font-size: clamp(0.72rem, 1.8vw, 0.82rem);
+  letter-spacing: 0.3px;
+  transition: color 0.3s var(--ease-smooth);
+}
+
+.footer-bottom:hover {
+  color: #6b7280;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .footer,
+  .footer-glow-line,
+  .footer-links a::after,
+  .footer-social a::after,
+  .footer-brand {
+    transition: none !important;
+    animation: none !important;
+  }
+  .footer {
+    opacity: 1;
+    transform: none;
+  }
+}

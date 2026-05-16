@@ -1,98 +1,118 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
+
 import Saturn from "./components/saturn.jsx";
 import ProfileCard from "./components/profilecard";
 import Skills from "./components/Skills.jsx";
 import ProjectCards from "./components/projects";
 import SocialIcons from "./components/socialicons.jsx";
 import SpaceBackground from "./components/SpaceBackground";
+import Footer from "./components/Footer.jsx";
 import "./App.css";
+import CVNotification from "./components/CVNotification.jsx";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [contentReady, setContentReady] = useState(false);
   const [showProjectCards, setShowProjectCards] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
   const [showSocialIcons, setShowSocialIcons] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
-  // Refs for scroll-triggered sections
   const projectRef = useRef(null);
   const skillsRef = useRef(null);
   const socialRef = useRef(null);
 
-  // Loader effect
+  // Loader → content transition
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5000); // allow loader animation
-    return () => clearTimeout(timer);
+    const loaderTimer = setTimeout(() => setLoading(false), 5000);
+    return () => clearTimeout(loaderTimer);
   }, []);
 
-  // Debounce helper
-  const debounce = (func, delay) => {
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  };
-
-  // Scroll handler (for everything except ProfileCard)
-  const handleScroll = useCallback(
-    debounce(() => {
-      const windowHeight = window.innerHeight;
-
-      if (!showProjectCards && projectRef.current) {
-        const top = projectRef.current.getBoundingClientRect().top;
-        if (top < windowHeight) setShowProjectCards(true);
-      }
-
-      if (!showSkills && skillsRef.current) {
-        const top = skillsRef.current.getBoundingClientRect().top;
-        if (top < windowHeight) setShowSkills(true);
-      }
-
-      if (!showSocialIcons && socialRef.current) {
-        const top = socialRef.current.getBoundingClientRect().top;
-        if (top < windowHeight) setShowSocialIcons(true);
-      }
-    }, 100),
-    [showProjectCards, showSkills, showSocialIcons]
-  );
-
-  // Add scroll listener
+  // Stagger profile card entrance after loader fades
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // trigger once on mount
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    if (!loading) {
+      const t1 = setTimeout(() => setContentReady(true), 300);
+      const t2 = setTimeout(() => setShowProfile(true), 600);
+      return () => { clearTimeout(t1); clearTimeout(t2); };
+    }
+  }, [loading]);
+
+  // IntersectionObserver for scroll-triggered sections
+  useEffect(() => {
+    if (!contentReady) return;
+
+    const targetRefs = [
+      projectRef.current,
+      skillsRef.current,
+      socialRef.current,
+    ].filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const id = entry.target.dataset.section;
+          if (id === "projects") setShowProjectCards(true);
+          if (id === "skills") setShowSkills(true);
+          if (id === "social") setShowSocialIcons(true);
+
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        root: null, // document/viewport scroll root
+        threshold: 0.1,
+        rootMargin: "0px 0px -60px 0px",
+      }
+    );
+
+    targetRefs.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [contentReady]);
+
+
+
 
   return (
     <div className="app-wrapper">
       {/* Loader */}
-      <div className={`loader-wrapper ${loading ? "" : "shrink"}`}>
-        <Saturn />
+      <div className={`loader-wrapper ${!loading ? "shrink" : ""}`}>
+        <div className="loader-inner">
+          <Saturn />
+          <div className="loader-pulse" />
+        </div>
       </div>
 
       <SpaceBackground />
 
       {/* Main content */}
-      <div className={`main-content ${loading ? "" : "visible"}`}>
-        {/* Profile Card always appears after loader */}
-        {!loading && (
-          <div className="content-section profile-card visible">
-            <ProfileCard />
-          </div>
-        )}
+      <div className={`main-content ${contentReady ? "visible" : ""}`}>
+        {/* Profile Card */}
+        <div
+          id="about"
+          className={`content-section profile-section ${showProfile ? "visible" : ""}`}
+        >
+          <ProfileCard />
+        </div>
 
         {/* Project Cards */}
         <div
+          id="projects"
           ref={projectRef}
-          className={`content-section project-cards ${showProjectCards ? "visible" : ""}`}
+          data-section="projects"
+          className={`content-section project-section ${showProjectCards ? "visible" : ""}`}
         >
           {showProjectCards && <ProjectCards />}
         </div>
 
-        {/* Skills card */}
+        {/* Skills */}
         <div
+          id="skills"
           ref={skillsRef}
-          className={`content-section skills ${showSkills ? "visible" : ""}`}
+          data-section="skills"
+          className={`content-section skills-section ${showSkills ? "visible" : ""}`}
         >
           {showSkills && <Skills />}
         </div>
@@ -100,11 +120,16 @@ export default function App() {
         {/* Social Icons */}
         <div
           ref={socialRef}
-          className={`content-section social-icons ${showSocialIcons ? "visible" : ""}`}
+          data-section="social"
+          className={`content-section social-section ${showSocialIcons ? "visible" : ""}`}
         >
           {showSocialIcons && <SocialIcons />}
         </div>
       </div>
+
+      <Footer />
+      
+      <CVNotification />
     </div>
   );
 }
