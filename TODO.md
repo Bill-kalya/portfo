@@ -1,14 +1,9 @@
-# TODO: Implement IntelPopup Auto-Show After 20s
+# TODO
 
-## Steps:
-- [x] User approved plan
-- [ ] 1. Create TODO.md with breakdown
-- [ ] 2. Add IntelPopup import to src/App.jsx
-- [ ] 3. Add showIntelPopup state to src/App.jsx  
-- [ ] 4. Add 20s auto-show useEffect to src/App.jsx
-- [ ] 5. Add conditional IntelPopup render after Footer in src/App.jsx
-- [ ] 6. Verify edits (no linter errors expected)
-- [ ] 7. Test with `npm run dev` (popup after 20s)
-- [ ] 8. Update TODO.md with completion
-- [ ] 9. attempt_completion
+- [x] Inspect Vite + index.html base path configuration
+- [x] Identify /portfo/ subdirectory asset 404 root cause (base path / absolute URLs)
+- [x] Add `vercel.json` rewrite so SPA loads on refresh under `/portfo/`
+- [x] Add `.env.production` with BASE_URL=/portfo/ (for any code that uses it)
+- [ ] Verify build output and asset URLs (vite build + check dist)
+- [ ] Ensure favicon/icon paths resolve (public/icon.png referenced as `/portfo/icon.png`)
 

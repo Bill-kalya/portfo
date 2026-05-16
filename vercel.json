@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/portfo/(.*)", "destination": "/portfo/index.html" }
+  ]
+}
+
