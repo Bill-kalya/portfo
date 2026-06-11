@@ -3,11 +3,21 @@ import './projects.css';
 import frameimg from '../assets/frame-animation.png';
 import arborealimg from '../assets/arboreal.png';
 import farmhandimg from '../assets/farmhand.png';
+import rootsimg from '../assets/roots.png';
 
 const ProjectCards = () => {
   const projects = [
     {
       id: 1,
+      title: "Roots",
+      description: "Where art and culture meet: We sell African-inspired art and curvings.",
+      imageAlt: "website",
+      image: rootsimg,
+      link: "https://roots-black.vercel.app/",
+      buttonText: "View More"
+    },
+    {
+      id: 2,
       title: "Farmhand",
       description: "Smart Market place for Connecting Farmers, Stores & Laborers in Real-Time",
       imageAlt: "website",
@@ -16,7 +26,7 @@ const ProjectCards = () => {
       buttonText: "View More"
     },
     {
-      id: 2,
+      id: 3,
       title: "Arboreal Archive",
       description: "Explore, learn, and compare tree species all in one interactive digital forest.",
       imageAlt: "mobile app",
@@ -25,7 +35,7 @@ const ProjectCards = () => {
       buttonText: "View More"
     },
     {
-      id: 3,
+      id: 4,
       title: "Frame-Animation",
       description: "A sleek, fluid animation that brings modern elegance and movement to any webpage.",
       imageAlt: "frame animation",

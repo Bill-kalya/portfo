@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './CVNotification.css';
 
 // ── Replace with your actual CV file path ──────────────────────
-import cvFile from '../assets/Kalya_CV.pdf';
+import cvFile from '../assets/Kalya kiprono.pdf';
 
 const DOTS_DURATION   = 2800;   // ms the "..." loads
 const TRIGGER_DELAY   = 40000;  // ms after page load before popup appears
