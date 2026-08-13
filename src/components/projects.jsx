@@ -4,6 +4,7 @@ import frameimg from '../assets/frame-animation.png';
 import arborealimg from '../assets/arboreal.png';
 import farmhandimg from '../assets/farmhand.png';
 import rootsimg from '../assets/roots.png';
+import geometryimg from '../assets/geometry.png';
 
 const ProjectCards = () => {
   const projects = [
@@ -42,6 +43,15 @@ const ProjectCards = () => {
       image: frameimg,
       link: "https://bill-kalya.github.io/frame-animation/",
       buttonText: "View More"
+    },
+    {
+      id: 5,
+      title: "Geometry Explorer",
+      description: "An interactive website that allows users to explore and visualize geometric shapes and formulaes.",
+      imageAlt: "geometry explorer",
+      image: geometryimg,
+      link: "https://bill-kalya.github.io/Area-Perimeter-circumference-Calculator/",
+      buttonText: "View More"
     }
   ];
 
@@ -49,39 +59,75 @@ const ProjectCards = () => {
     <div className="project-container">
       <h1 className="section-title">Featured Projects</h1>
       <p className="section-subtitle">Explore my latest work and accomplishments</p>
-      
       <div className="flex-container-cards">
-        {projects.map(project => (
-          <div className="card" key={project.id}>
-            <div className="card-img-shadow">
-              {project.image ? (
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
-                  <img src={project.image} alt={project.imageAlt || project.title} style={{ cursor: 'pointer' }} />
-                </a>
-              ) : (
-                <div className="image-placeholder">
-                  <div className="placeholder-icon">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path d="M4 16L8 12L11.5 15.5L14.5 12.5L16 14L20 10M4 16V20H20V4H4V16Z"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+        <div className="marquee">
+          <div className="marquee-track">
+            {projects.map(project => (
+              <div className="card" key={`p1-${project.id}`}>
+                <div className="card-img-shadow">
+                  {project.image ? (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer">
+                      <img src={project.image} alt={project.imageAlt || project.title} style={{ cursor: 'pointer' }} />
+                    </a>
+                  ) : (
+                    <div className="image-placeholder">
+                      <div className="placeholder-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M4 16L8 12L11.5 15.5L14.5 12.5L16 14L20 10M4 16V20H20V4H4V16Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="card-content">
+                  <h2>{project.title}</h2>
+                  <p>{project.description}</p>
+                  <div className="button-shadow">
+                    <div className="card-button">{project.buttonText}</div>
                   </div>
                 </div>
-              )}
-            </div>
-            <div className="card-content">
-              <h2>{project.title}</h2>
-              <p>{project.description}</p>
-              <div className="button-shadow">
-                <div className="card-button">{project.buttonText}</div>
               </div>
-            </div>
+            ))}
+
+            {/* duplicate for seamless marquee */}
+            {projects.map(project => (
+              <div className="card" key={`p2-${project.id}`}>
+                <div className="card-img-shadow">
+                  {project.image ? (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer">
+                      <img src={project.image} alt={project.imageAlt || project.title} style={{ cursor: 'pointer' }} />
+                    </a>
+                  ) : (
+                    <div className="image-placeholder">
+                      <div className="placeholder-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M4 16L8 12L11.5 15.5L14.5 12.5L16 14L20 10M4 16V20H20V4H4V16Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="card-content">
+                  <h2>{project.title}</h2>
+                  <p>{project.description}</p>
+                  <div className="button-shadow">
+                    <div className="card-button">{project.buttonText}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

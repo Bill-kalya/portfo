@@ -39,6 +39,40 @@ p {
   animation: breatheFloat 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+/* Marquee wrapper: viewport for the scrolling row */
+.flex-container-cards .marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Track holding two copies of the cards for a seamless loop */
+.flex-container-cards .marquee-track {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  /* control speed here */
+  animation: scrollLeft 24s linear infinite;
+}
+
+/* prevent cards from shrinking and ensure inline layout */
+.flex-container-cards .marquee-track .card {
+  flex: 0 0 auto;
+  /* disable the entry slide animation for marquee flow */
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* pause marquee on hover for easier interaction */
+.flex-container-cards .marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ================================
    Card
 ================================ */
